@@ -601,6 +601,7 @@
       <button class="lesson-btn active" onclick="switchLesson(4)">第4課</button>
       <button class="lesson-btn" onclick="switchLesson(5)">第5課</button>
       <button class="lesson-btn" onclick="switchLesson(6)">第6課</button>
+      <button class="lesson-btn" onclick="switchLesson(7)">第7課</button>
     </div>
 
     <!-- ══ 第4課 ══ -->
@@ -989,6 +990,159 @@
       </div>
     </div>
 
+    <!-- ══ 第7課 ══ -->
+    <div id="lesson-7" class="lesson-panel" style="display:none">
+      <div class="dialogue-header">
+        <div class="dialogue-lesson">第7課</div>
+        <div class="dialogue-title">きょうはどようびです</div>
+      </div>
+      <div class="audio-wrap">
+        <button class="audio-play-btn" id="play-btn-7" onclick="toggleAudio(7)">▶</button>
+        <div class="audio-info">
+          <div class="audio-title">🎵 대화문 듣기</div>
+          <div class="audio-bar-wrap" onclick="seekAudio(event,7)">
+            <div class="audio-bar-fill" id="audio-bar-7"></div>
+          </div>
+          <div class="audio-time" id="audio-time-7">0:00 / 0:00</div>
+        </div>
+      </div>
+      <audio id="audio-7" src="lesson7.mp3"></audio>
+
+      <div class="dialogue-text-card">
+        <div class="dialogue-text-label">대화문 본문</div>
+        <div class="dialogue-scene">カフェ(かふぇ)で (카페에서)</div>
+        <div class="dialogue-line"><div class="dl-speaker">はる</div><div><div class="dl-text">きょうはなんようびですか。</div><div class="dl-ko">오늘은 무슨 요일이에요?</div></div></div>
+        <div class="dialogue-line"><div class="dl-speaker">あき</div><div><div class="dl-text">きょうはどようびです。</div><div class="dl-ko">오늘은 토요일입니다.</div></div></div>
+        <div class="dialogue-line"><div class="dl-speaker">はる</div><div><div class="dl-text">あきさんのたんじょうびはいつですか。</div><div class="dl-ko">아키 씨의 생일은 언제예요?</div></div></div>
+        <div class="dialogue-line"><div class="dl-speaker">あき</div><div><div class="dl-text">４月(しがつ)１９日(じゅうくにち)です。</div><div class="dl-ko">4월 19일입니다.</div></div></div>
+        <div class="dialogue-line"><div class="dl-speaker">はる</div><div><div class="dl-text">きのう たんじょうびでしたか？！おめでとうございます。</div><div class="dl-ko">어제 생일이었어요?! 축하해요.</div></div></div>
+        <div class="dialogue-line"><div class="dl-speaker">あき</div><div><div class="dl-text">ありがとうございます。はるさんの誕生日(たんじょうび)はなんがつなんにちですか。</div><div class="dl-ko">고맙습니다. 하루 씨의 생일은 몇 월 며칠이에요?</div></div></div>
+        <div class="dialogue-line"><div class="dl-speaker">はる</div><div><div class="dl-text">４月(しがつ)２１日(にじゅういちにち)です。</div><div class="dl-ko">4월 21일입니다.</div></div></div>
+        <div class="dialogue-line"><div class="dl-speaker">あき</div><div><div class="dl-text">あしたですね？！ケーキじゅんびします。</div><div class="dl-ko">내일이네요?! 케이크 준비할게요.</div></div></div>
+        <div class="dialogue-line"><div class="dl-speaker">はる</div><div><div class="dl-text">ありがとうございます。わたしはあきさんのプレゼントじゅんびします。</div><div class="dl-ko">고맙습니다. 저는 아키 씨의 선물을 준비할게요.</div></div></div>
+        <div class="dialogue-line"><div class="dl-speaker">あき</div><div><div class="dl-text">ありがとうございます。</div><div class="dl-ko">고맙습니다.</div></div></div>
+      </div>
+
+      <div class="dq-section-title">빈칸 채우기 퀴즈</div>
+
+      <div class="dq-card" id="dq7-1"><div class="dq-num">Q1</div>
+        <div class="dq-prompt">はる：きょうは<span class="dq-blank" id="b7-1">고르세요</span>ですか。</div>
+        <div class="dq-ko">오늘은 무슨 요일이에요?</div>
+        <div class="dq-opts">
+          <button class="dq-opt" onclick="fillBlank(this,'b7-1','なんようび','fb7-1','dq7-1',7)">なんようび</button>
+          <button class="dq-opt" onclick="fillBlank(this,'b7-1','なんようび','fb7-1','dq7-1',7)">どようび</button>
+          <button class="dq-opt" onclick="fillBlank(this,'b7-1','なんようび','fb7-1','dq7-1',7)">なんにち</button>
+          <button class="dq-opt" onclick="fillBlank(this,'b7-1','なんようび','fb7-1','dq7-1',7)">なんがつ</button>
+        </div><div class="dq-fb" id="fb7-1"></div>
+      </div>
+
+      <div class="dq-card" id="dq7-2"><div class="dq-num">Q2</div>
+        <div class="dq-prompt">あき：<span class="dq-blank" id="b7-2">고르세요</span>。</div>
+        <div class="dq-ko">오늘은 토요일입니다.</div>
+        <div class="dq-opts">
+          <button class="dq-opt" onclick="fillBlank(this,'b7-2','きょうはどようびです','fb7-2','dq7-2',7)">きょうはどようびです</button>
+          <button class="dq-opt" onclick="fillBlank(this,'b7-2','きょうはどようびです','fb7-2','dq7-2',7)">きょうはにちようびです</button>
+          <button class="dq-opt" onclick="fillBlank(this,'b7-2','きょうはどようびです','fb7-2','dq7-2',7)">きょうはもくようびです</button>
+          <button class="dq-opt" onclick="fillBlank(this,'b7-2','きょうはどようびです','fb7-2','dq7-2',7)">きょうはきんようびです</button>
+        </div><div class="dq-fb" id="fb7-2"></div>
+      </div>
+
+      <div class="dq-card" id="dq7-3"><div class="dq-num">Q3</div>
+        <div class="dq-prompt">はる：あきさんの<span class="dq-blank" id="b7-3">고르세요</span>はいつですか。</div>
+        <div class="dq-ko">아키 씨의 생일은 언제예요?</div>
+        <div class="dq-opts">
+          <button class="dq-opt" onclick="fillBlank(this,'b7-3','たんじょうび','fb7-3','dq7-3',7)">たんじょうび</button>
+          <button class="dq-opt" onclick="fillBlank(this,'b7-3','たんじょうび','fb7-3','dq7-3',7)">プレゼント</button>
+          <button class="dq-opt" onclick="fillBlank(this,'b7-3','たんじょうび','fb7-3','dq7-3',7)">ケーキ</button>
+          <button class="dq-opt" onclick="fillBlank(this,'b7-3','たんじょうび','fb7-3','dq7-3',7)">なまえ</button>
+        </div><div class="dq-fb" id="fb7-3"></div>
+      </div>
+
+      <div class="dq-card" id="dq7-4"><div class="dq-num">Q4</div>
+        <div class="dq-prompt">あき：<span class="dq-blank" id="b7-4">고르세요</span>です。</div>
+        <div class="dq-ko">4월 19일입니다.</div>
+        <div class="dq-opts">
+          <button class="dq-opt" onclick="fillBlank(this,'b7-4','４月(しがつ)１９日(じゅうくにち)','fb7-4','dq7-4',7)">４月(しがつ)１９日(じゅうくにち)</button>
+          <button class="dq-opt" onclick="fillBlank(this,'b7-4','４月(しがつ)１９日(じゅうくにち)','fb7-4','dq7-4',7)">４月(しがつ)２１日(にじゅういちにち)</button>
+          <button class="dq-opt" onclick="fillBlank(this,'b7-4','４月(しがつ)１９日(じゅうくにち)','fb7-4','dq7-4',7)">３月(さんがつ)１９日(じゅうくにち)</button>
+          <button class="dq-opt" onclick="fillBlank(this,'b7-4','４月(しがつ)１９日(じゅうくにち)','fb7-4','dq7-4',7)">５月(ごがつ)２１日(にじゅういちにち)</button>
+        </div><div class="dq-fb" id="fb7-4"></div>
+      </div>
+
+      <div class="dq-card" id="dq7-5"><div class="dq-num">Q5</div>
+        <div class="dq-prompt">はる：<span class="dq-blank" id="b7-5">고르세요</span>？！</div>
+        <div class="dq-ko">어제 생일이었어요?!</div>
+        <div class="dq-opts">
+          <button class="dq-opt" onclick="fillBlank(this,'b7-5','きのう たんじょうびでしたか','fb7-5','dq7-5',7)">きのう たんじょうびでしたか</button>
+          <button class="dq-opt" onclick="fillBlank(this,'b7-5','きのう たんじょうびでしたか','fb7-5','dq7-5',7)">あした たんじょうびですか</button>
+          <button class="dq-opt" onclick="fillBlank(this,'b7-5','きのう たんじょうびでしたか','fb7-5','dq7-5',7)">きょう たんじょうびですか</button>
+          <button class="dq-opt" onclick="fillBlank(this,'b7-5','きのう たんじょうびでしたか','fb7-5','dq7-5',7)">らいねん たんじょうびですか</button>
+        </div><div class="dq-fb" id="fb7-5"></div>
+      </div>
+
+      <div class="dq-card" id="dq7-6"><div class="dq-num">Q6</div>
+        <div class="dq-prompt">はる：<span class="dq-blank" id="b7-6">고르세요</span>。</div>
+        <div class="dq-ko">축하해요.</div>
+        <div class="dq-opts">
+          <button class="dq-opt" onclick="fillBlank(this,'b7-6','おめでとうございます','fb7-6','dq7-6',7)">おめでとうございます</button>
+          <button class="dq-opt" onclick="fillBlank(this,'b7-6','おめでとうございます','fb7-6','dq7-6',7)">ありがとうございます</button>
+          <button class="dq-opt" onclick="fillBlank(this,'b7-6','おめでとうございます','fb7-6','dq7-6',7)">よろしくおねがいします</button>
+          <button class="dq-opt" onclick="fillBlank(this,'b7-6','おめでとうございます','fb7-6','dq7-6',7)">すみません</button>
+        </div><div class="dq-fb" id="fb7-6"></div>
+      </div>
+
+      <div class="dq-card" id="dq7-7"><div class="dq-num">Q7</div>
+        <div class="dq-prompt">あき：はるさんの誕生日(たんじょうび)は<span class="dq-blank" id="b7-7">고르세요</span>ですか。</div>
+        <div class="dq-ko">하루 씨의 생일은 몇 월 며칠이에요?</div>
+        <div class="dq-opts">
+          <button class="dq-opt" onclick="fillBlank(this,'b7-7','なんがつなんにち','fb7-7','dq7-7',7)">なんがつなんにち</button>
+          <button class="dq-opt" onclick="fillBlank(this,'b7-7','なんがつなんにち','fb7-7','dq7-7',7)">なんようび</button>
+          <button class="dq-opt" onclick="fillBlank(this,'b7-7','なんがつなんにち','fb7-7','dq7-7',7)">いつ</button>
+          <button class="dq-opt" onclick="fillBlank(this,'b7-7','なんがつなんにち','fb7-7','dq7-7',7)">なんじ</button>
+        </div><div class="dq-fb" id="fb7-7"></div>
+      </div>
+
+      <div class="dq-card" id="dq7-8"><div class="dq-num">Q8</div>
+        <div class="dq-prompt">はる：しがつ<span class="dq-blank" id="b7-8">고르세요</span>。</div>
+        <div class="dq-ko">4월 21일입니다.</div>
+        <div class="dq-opts">
+          <button class="dq-opt" onclick="fillBlank(this,'b7-8','２１日(にじゅういちにち)です','fb7-8','dq7-8',7)">２１日(にじゅういちにち)です</button>
+          <button class="dq-opt" onclick="fillBlank(this,'b7-8','２１日(にじゅういちにち)です','fb7-8','dq7-8',7)">１９日(じゅうくにち)です</button>
+          <button class="dq-opt" onclick="fillBlank(this,'b7-8','２１日(にじゅういちにち)です','fb7-8','dq7-8',7)">２０日(はつか)です</button>
+          <button class="dq-opt" onclick="fillBlank(this,'b7-8','２１日(にじゅういちにち)です','fb7-8','dq7-8',7)">１日(ついたち)です</button>
+        </div><div class="dq-fb" id="fb7-8"></div>
+      </div>
+
+      <div class="dq-card" id="dq7-9"><div class="dq-num">Q9</div>
+        <div class="dq-prompt">あき：<span class="dq-blank" id="b7-9">고르세요</span>？！</div>
+        <div class="dq-ko">내일이네요?!</div>
+        <div class="dq-opts">
+          <button class="dq-opt" onclick="fillBlank(this,'b7-9','あしたですね','fb7-9','dq7-9',7)">あしたですね</button>
+          <button class="dq-opt" onclick="fillBlank(this,'b7-9','あしたですね','fb7-9','dq7-9',7)">きのうですね</button>
+          <button class="dq-opt" onclick="fillBlank(this,'b7-9','あしたですね','fb7-9','dq7-9',7)">きょうですね</button>
+          <button class="dq-opt" onclick="fillBlank(this,'b7-9','あしたですね','fb7-9','dq7-9',7)">らいねんですね</button>
+        </div><div class="dq-fb" id="fb7-9"></div>
+      </div>
+
+      <div class="dq-card" id="dq7-10"><div class="dq-num">Q10</div>
+        <div class="dq-prompt">あき：<span class="dq-blank" id="b7-10">고르세요</span>。</div>
+        <div class="dq-ko">고맙습니다.</div>
+        <div class="dq-opts">
+          <button class="dq-opt" onclick="fillBlank(this,'b7-10','ありがとうございます','fb7-10','dq7-10',7)">ありがとうございます</button>
+          <button class="dq-opt" onclick="fillBlank(this,'b7-10','ありがとうございます','fb7-10','dq7-10',7)">おめでとうございます</button>
+          <button class="dq-opt" onclick="fillBlank(this,'b7-10','ありがとうございます','fb7-10','dq7-10',7)">すみません</button>
+          <button class="dq-opt" onclick="fillBlank(this,'b7-10','ありがとうございます','fb7-10','dq7-10',7)">よろしくおねがいします</button>
+        </div><div class="dq-fb" id="fb7-10"></div>
+      </div>
+
+      <div class="dq-result" id="dq-result-7">
+        <div class="dq-result-title" id="dq-result-title-7"></div>
+        <div class="dq-result-score" id="dq-result-score-7"></div>
+        <div class="dq-result-msg" id="dq-result-msg-7"></div>
+        <button class="dq-retry-btn" onclick="resetLesson(7)">다시 풀기 ↺</button>
+      </div>
+    </div>
+
   </div>
 
 </div>
@@ -1010,7 +1164,7 @@ function switchLesson(num) {
   event.currentTarget.classList.add('active');
   document.getElementById(`lesson-${num}`).style.display = 'block';
   // pause any playing audio
-  [4,5,6].forEach(n => {
+  [4,5,6,7].forEach(n => {
     const a = document.getElementById(`audio-${n}`);
     if (a && !a.paused) { a.pause(); document.getElementById(`play-btn-${n}`).textContent = '▶'; }
   });
@@ -1032,7 +1186,7 @@ function toggleAudio(n) {
     btn.textContent = '▶';
   }
 }
-[4,5,6].forEach(n => {
+[4,5,6,7].forEach(n => {
   const a = document.getElementById(`audio-${n}`);
   if (!a) return;
   a.addEventListener('timeupdate', () => {
@@ -1051,7 +1205,7 @@ function seekAudio(e, n) {
 }
 
 // ── DIALOGUE QUIZ ──
-const LESSON_TOTALS = { 4: 7, 5: 8, 6: 9 };
+const LESSON_TOTALS = { 4: 7, 5: 8, 6: 9, 7: 10 };
 const dqState = { 4: { score:0, answered:0 }, 5: { score:0, answered:0 } };
 
 function fillBlank(btn, blankId, correct, fbId, cardId, lesson) {
