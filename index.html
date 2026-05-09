@@ -482,17 +482,17 @@
 
   /* LESSON SELECTOR */
   .lesson-selector {
-    width: 100%; display: flex; gap: 10px;
+    width: 100%; display: flex; flex-wrap: wrap; gap: 8px;
   }
   .lesson-btn {
-    flex: 1; padding: 10px;
+    flex: 1 1 calc(33% - 8px); min-width: 80px; padding: 10px 6px;
     background: var(--card-bg);
     border: 2px solid var(--ink);
     font-family: 'Noto Serif JP', serif;
-    font-size: 0.9rem; font-weight: 700;
+    font-size: 0.85rem; font-weight: 700;
     cursor: pointer; color: var(--muted);
     box-shadow: 3px 3px 0 var(--ink);
-    transition: all 0.12s;
+    transition: all 0.12s; text-align: center;
   }
   .lesson-btn:hover { background: var(--light-gold); }
   .lesson-btn.active { background: var(--ink); color: var(--cream); box-shadow: 1px 1px 0 var(--gold); }
