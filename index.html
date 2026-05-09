@@ -118,26 +118,31 @@
   }
   .mode-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
     width: 100%;
   }
   .mode-card {
     background: var(--card-bg);
     border: 2px solid var(--ink);
-    padding: 20px 12px;
+    padding: 16px 8px;
     text-align: center;
     cursor: pointer;
     transition: background 0.15s, transform 0.1s;
     box-shadow: 4px 4px 0 var(--ink);
   }
+  @media (max-width: 400px) {
+    .mode-grid { grid-template-columns: 1fr; }
+    .mode-card { padding: 14px 16px; display: flex; align-items: center; gap: 14px; text-align: left; }
+    .mode-icon { font-size: 1.8rem; margin-bottom: 0; flex-shrink: 0; }
+  }
   .mode-card:hover { background: var(--light-gold); transform: translate(-2px,-2px); box-shadow: 6px 6px 0 var(--ink); }
   .mode-card.selected { background: var(--ink); color: var(--cream); box-shadow: 2px 2px 0 var(--gold); }
   .mode-card.selected .mode-icon { color: var(--light-gold); }
   .mode-card.selected .mode-desc { color: var(--light-gold); }
-  .mode-icon { font-size: 2rem; margin-bottom: 6px; }
-  .mode-name { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.05em; }
-  .mode-desc { font-size: 0.72rem; color: var(--muted); margin-top: 3px; }
+  .mode-icon { font-size: 1.6rem; margin-bottom: 4px; }
+  .mode-name { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.03em; }
+  .mode-desc { font-size: 0.68rem; color: var(--muted); margin-top: 2px; }
 
   .count-row {
     display: flex; align-items: center; gap: 14px; width: 100%; justify-content: center;
@@ -499,7 +504,6 @@
 
   @media (max-width: 400px) {
     .q-main { font-size: 2.8rem; }
-    .mode-grid { grid-template-columns: 1fr; }
     .options-grid { grid-template-columns: 1fr; }
   }
 </style>
@@ -537,6 +541,11 @@
           <div class="mode-icon">語</div>
           <div class="mode-name">단어 암기</div>
           <div class="mode-desc">일본어 → 한국어</div>
+        </div>
+        <div class="mode-card" data-mode="numbers" onclick="selectMode(this)">
+          <div class="mode-icon">１２３</div>
+          <div class="mode-name">숫자 읽기</div>
+          <div class="mode-desc">숫자 · 날짜 · 시간</div>
         </div>
       </div>
       <div class="divider"></div>
@@ -1591,6 +1600,70 @@ const VOCAB = [
   {q:'を',a:'을/를'},{q:'ほん',a:'책'},{q:'しんこう',a:'믿음'},
 ];
 
+// 숫자 데이터 (숫자 읽기 + 날짜 + 시간 통합)
+const NUMBERS_RAW = [
+  // 기본 숫자
+  {q:'１',a:'いち',type:'숫자'},{q:'２',a:'に',type:'숫자'},{q:'３',a:'さん',type:'숫자'},
+  {q:'４',a:'し／よん',type:'숫자'},{q:'５',a:'ご',type:'숫자'},{q:'６',a:'ろく',type:'숫자'},
+  {q:'７',a:'しち／なな',type:'숫자'},{q:'８',a:'はち',type:'숫자'},{q:'９',a:'く／きゅう',type:'숫자'},
+  {q:'１０',a:'じゅう',type:'숫자'},{q:'１１',a:'じゅういち',type:'숫자'},{q:'１２',a:'じゅうに',type:'숫자'},
+  // 날짜 (월)
+  {q:'１月',a:'いちがつ',type:'날짜'},{q:'２月',a:'にがつ',type:'날짜'},{q:'３月',a:'さんがつ',type:'날짜'},
+  {q:'４月',a:'しがつ',type:'날짜'},{q:'５月',a:'ごがつ',type:'날짜'},{q:'６月',a:'ろくがつ',type:'날짜'},
+  {q:'７月',a:'しちがつ',type:'날짜'},{q:'８月',a:'はちがつ',type:'날짜'},{q:'９月',a:'くがつ',type:'날짜'},
+  {q:'１０月',a:'じゅうがつ',type:'날짜'},{q:'１１月',a:'じゅういちがつ',type:'날짜'},{q:'１２月',a:'じゅうにがつ',type:'날짜'},
+  // 날짜 (일) — 특수한 것 위주
+  {q:'１日',a:'ついたち',type:'날짜'},{q:'２日',a:'ふつか',type:'날짜'},{q:'３日',a:'みっか',type:'날짜'},
+  {q:'４日',a:'よっか',type:'날짜'},{q:'５日',a:'いつか',type:'날짜'},{q:'６日',a:'むいか',type:'날짜'},
+  {q:'７日',a:'なのか',type:'날짜'},{q:'８日',a:'ようか',type:'날짜'},{q:'９日',a:'ここのか',type:'날짜'},
+  {q:'１０日',a:'とおか',type:'날짜'},{q:'１４日',a:'じゅうよっか',type:'날짜'},{q:'１９日',a:'じゅうくにち',type:'날짜'},
+  {q:'２０日',a:'はつか',type:'날짜'},{q:'２１日',a:'にじゅういちにち',type:'날짜'},{q:'２４日',a:'にじゅうよっか',type:'날짜'},
+  // 시간 (정각 + 반)
+  {q:'１時',a:'いちじ',type:'시간'},{q:'２時',a:'にじ',type:'시간'},{q:'３時',a:'さんじ',type:'시간'},
+  {q:'４時',a:'よじ',type:'시간'},{q:'５時',a:'ごじ',type:'시간'},{q:'６時',a:'ろくじ',type:'시간'},
+  {q:'７時',a:'しちじ',type:'시간'},{q:'８時',a:'はちじ',type:'시간'},{q:'９時',a:'くじ',type:'시간'},
+  {q:'１０時',a:'じゅうじ',type:'시간'},{q:'１１時',a:'じゅういちじ',type:'시간'},{q:'１２時',a:'じゅうにじ',type:'시간'},
+  {q:'１時半',a:'いちじはん',type:'시간'},{q:'２時半',a:'にじはん',type:'시간'},{q:'３時半',a:'さんじはん',type:'시간'},
+  {q:'４時半',a:'よじはん',type:'시간'},{q:'６時半',a:'ろくじはん',type:'시간'},{q:'９時半',a:'くじはん',type:'시간'},
+];
+
+// 숫자 퀴즈용 — 같은 type에서 오답 뽑기
+function getNumberWrongOpts(correct, count=3) {
+  const sameType = NUMBERS_RAW.filter(x => x.type === correct.type && x.a !== correct.a);
+  const diffType = NUMBERS_RAW.filter(x => x.type !== correct.type && x.a !== correct.a);
+  const pool = [...shuffle(sameType).slice(0,2), ...shuffle(diffType).slice(0,2)];
+  return shuffle(pool).slice(0, count).map(x => x.a);
+}
+
+// ── 알림음 ──
+const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+function playCorrectSound() {
+  const t = audioCtx.currentTime;
+  [523, 659, 784].forEach((freq, i) => {
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.connect(gain); gain.connect(audioCtx.destination);
+    osc.frequency.value = freq;
+    osc.type = 'sine';
+    gain.gain.setValueAtTime(0.3, t + i*0.12);
+    gain.gain.exponentialRampToValueAtTime(0.001, t + i*0.12 + 0.25);
+    osc.start(t + i*0.12);
+    osc.stop(t + i*0.12 + 0.25);
+  });
+}
+function playWrongSound() {
+  const t = audioCtx.currentTime;
+  const osc = audioCtx.createOscillator();
+  const gain = audioCtx.createGain();
+  osc.connect(gain); gain.connect(audioCtx.destination);
+  osc.frequency.setValueAtTime(300, t);
+  osc.frequency.exponentialRampToValueAtTime(150, t + 0.35);
+  osc.type = 'sawtooth';
+  gain.gain.setValueAtTime(0.25, t);
+  gain.gain.exponentialRampToValueAtTime(0.001, t + 0.4);
+  osc.start(t); osc.stop(t + 0.4);
+}
+
 // ── QUIZ LOGIC ──
 let mode='hiragana', quizCount=10, questions=[], current=0, score=0, wrongItems=[], answered=false;
 
@@ -1616,7 +1689,10 @@ function showScreen(id){
   document.getElementById(id).classList.add('active');
 }
 function startQuiz(){
-  const pool=mode==='hiragana'?HIRAGANA:VOCAB;
+  let pool;
+  if(mode==='hiragana') pool=HIRAGANA;
+  else if(mode==='vocab') pool=VOCAB;
+  else pool=NUMBERS_RAW;
   questions=getRandom(pool,Math.min(quizCount,pool.length));
   current=0;score=0;wrongItems=[];
   showScreen('screen-quiz');renderQuestion();
@@ -1624,16 +1700,24 @@ function startQuiz(){
 function renderQuestion(){
   answered=false;
   const q=questions[current];
-  const pool=mode==='hiragana'?HIRAGANA:VOCAB;
   const total=questions.length;
   document.getElementById('prog-text').textContent=`${current+1} / ${total}`;
   document.getElementById('score-text').textContent=`점수: ${score}`;
   document.getElementById('prog-fill').style.width=`${(current/total)*100}%`;
   document.getElementById('q-badge').textContent=`Q${current+1}`;
-  document.getElementById('q-type-label').textContent=mode==='hiragana'?'히라가나 읽기 — 발음은?':'단어 암기 — 한국어 뜻은?';
+
+  let label='';
+  if(mode==='hiragana') label='히라가나 읽기 — 발음은?';
+  else if(mode==='vocab') label='단어 암기 — 한국어 뜻은?';
+  else label= q.type==='숫자'?'숫자 읽기 — 히라가나로?': q.type==='날짜'?'날짜 읽기 — 히라가나로?':'시간 읽기 — 히라가나로?';
+  document.getElementById('q-type-label').textContent=label;
   document.getElementById('q-main').textContent=q.q;
   document.getElementById('q-hint').textContent='';
-  const opts=shuffle([q.a,...getWrongOptions(pool,q)]);
+
+  let opts;
+  if(mode==='numbers') opts=shuffle([q.a,...getNumberWrongOpts(q)]);
+  else opts=shuffle([q.a,...getWrongOptions(mode==='hiragana'?HIRAGANA:VOCAB,q)]);
+
   const grid=document.getElementById('options-grid');
   grid.innerHTML='';
   opts.forEach(opt=>{
@@ -1653,8 +1737,16 @@ function checkAnswer(btn,chosen,correct,question){
     if(b.textContent===correct)b.classList.add('correct');
   });
   const fb=document.getElementById('feedback');
-  if(chosen===correct){score++;btn.classList.add('correct');fb.textContent='✓ 정답입니다!';fb.className='feedback show correct-fb';}
-  else{btn.classList.add('wrong');fb.textContent=`✗ 오답 — 정답: ${correct}`;fb.className='feedback show wrong-fb';wrongItems.push(question);}
+  if(chosen===correct){
+    score++;btn.classList.add('correct');
+    fb.textContent='✓ 정답입니다!';fb.className='feedback show correct-fb';
+    playCorrectSound();
+  } else {
+    btn.classList.add('wrong');
+    fb.textContent=`✗ 오답 — 정답: ${correct}`;fb.className='feedback show wrong-fb';
+    wrongItems.push(question);
+    playWrongSound();
+  }
   document.getElementById('score-text').textContent=`점수: ${score}`;
   document.getElementById('next-btn').className='next-btn show';
 }
